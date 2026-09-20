@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Test Suite
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     services:
       mongo:
@@ -43,7 +43,7 @@ jobs:
 
   docker-build:
     name: Docker Build & Verification
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: test
 
     steps:
