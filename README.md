@@ -1,5 +1,10 @@
 # PunctureWala Platform
 
+[![CI/CD](https://github.com/rathodsaurav2907/puncturewala-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/rathodsaurav2907/puncturewala-platform/actions/workflows/ci.yml)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](./docker-compose.yml)
+[![Node.js](https://img.shields.io/badge/Node.js-22_LTS-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-8.0-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+
 An on-demand roadside tyre puncture repair and technician dispatch platform built with Node.js, Express, and MongoDB.
 
 Part of the **[Microservices & ML Data Platform Ecosystem](../ECOSYSTEM.md)**.
