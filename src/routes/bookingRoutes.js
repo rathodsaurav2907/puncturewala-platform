@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
+const Technician = require('../models/Technician');
 const { validateBooking } = require('../middleware/validation');
 
 router.post('/', async (req, res) => {
@@ -9,9 +10,15 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: error.details[0].message });
   }
 
+  const technician = await Technician.findById(value.technicianId);
+  if (!technician) {
+    return res.status(404).json({ error: 'Technician not found' });
+  }
+
   const bookingId = `BK-${Date.now()}`;
   const booking = new Booking({
     ...value,
+    technicianName: technician.name,
     bookingId
   });
 

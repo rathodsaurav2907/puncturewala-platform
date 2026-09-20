@@ -84,11 +84,12 @@ describe('Booking Endpoints', () => {
   let bookingId, createdTechnicianId;
 
   beforeEach(async () => {
+    const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
     const tech = new Technician({
-      technicianId: `TECH-${Date.now()}`,
+      technicianId: `TECH-${suffix}`,
       name: 'Test Tech',
-      phone: '+91-8888888888',
-      email: 'testtech@test.com',
+      phone: `+91-8${suffix}`,
+      email: `testtech-${suffix}@test.com`,
       experience: 3,
       hourlyRate: 250
     });
@@ -154,6 +155,7 @@ describe('Analytics Endpoints', () => {
   beforeEach(async () => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
+    await Analytics.deleteOne({ date });
 
     const analytics = new Analytics({
       date,
