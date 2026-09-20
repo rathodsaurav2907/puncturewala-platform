@@ -11,6 +11,18 @@ jobs:
     name: Run Test Suite
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:8
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval \"db.runCommand({ ping: 1 }).ok\""
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 10
+          --health-start-period 20s
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -19,12 +31,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install
 
       - name: Run Unit & Integration Tests
+        env:
+          MONGODB_URI: mongodb://localhost:27017/puncturewala-test
+          NODE_ENV: test
         run: npm test
 
   docker-build:
