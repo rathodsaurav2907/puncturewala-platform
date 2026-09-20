@@ -1,0 +1,23 @@
+services:
+  api:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "corepack enable && pnpm install && pnpm dev"
+    volumes: ["./api:/app"]
+    ports: ["4001:4000"]
+    environment:
+      PORT: 4000
+      MONGODB_URI: mongodb://mongo:27017/puncturewala
+    depends_on:
+      mongo: { condition: service_healthy }
+  mongo:
+    image: mongo:8
+    ports: ["27018:27017"]
+    volumes: ["mongo_data:/data/db"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+volumes:
+  mongo_data:
